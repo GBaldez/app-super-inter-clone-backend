@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn }from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn }from 'typeorm';
+import { User } from './Users';
 
 @Entity()
 export class Pix {
@@ -9,6 +10,13 @@ export class Pix {
     @Column()
     status: string;
 
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn()
+    requestingUser: User;
+
+    @ManyToOne(() => User, user => user.id, { nullable: true })
+    payingUser: User;
+
     @Column()
     value: number;
 
@@ -16,6 +24,6 @@ export class Pix {
     createAt: Date;
 
     @UpdateDateColumn()
-    createAt: Date;
+    updateAt: Date;
 
 }
