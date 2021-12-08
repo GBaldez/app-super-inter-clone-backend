@@ -24,6 +24,6 @@ export class Pix {
     createAt: Date;
 
     @UpdateDateColumn()
-    updateAt: Date;
+    updatedAt: Date;
 
 }

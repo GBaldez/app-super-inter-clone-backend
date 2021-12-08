@@ -1,17 +1,13 @@
-import { Router, Request, Response  } from "express";
+import { Router } from "express";
+import UserController from '../resources/user/user.controller';
+import userAuthenticated from '../middlewares/userAuthenticated';
 
-const userRoute = Router()
+const userRouter = Router()
+const userController = new UserController();
 
-userRoute.get('signin', (req: Request, res: Response) => {
-    res.send('Login Screen')
-});
-
-userRoute.post('signup', (req: Request, res: Response) => {
-    //catch values in body
-    //validation
-    //save in database
-    res.send('Create accout Screen')
-});
+userRouter.post('/signin', userController.signin)
+userRouter.post('/signup', userController.signup)
+userRouter.get('/me', userAuthenticated, userController.me)
 
 
-module.exports = userRoute;
+export default userRouter;
